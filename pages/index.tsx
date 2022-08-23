@@ -45,13 +45,14 @@ const Home: NextPage = () => {
 
 			<Layout>
 				<main className={styles.main}>
-					<Button
-						content='Create a compain'
-						icon='add circle'
-						labelPosition='right'
-						primary
-					/>
 					<div>
+						<Button
+							floated='right'
+							content='Create a compain'
+							icon='add circle'
+							labelPosition='right'
+							primary
+						/>
 						<Card.Group items={items}></Card.Group>
 					</div>
 				</main>

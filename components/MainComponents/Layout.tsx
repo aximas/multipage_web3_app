@@ -1,11 +1,13 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react';
+import { Header } from './Header';
 
 export const Layout = ({ children }: { children: JSX.Element }) => {
 	return (
-		<>
-			<header>It is header</header>
-			<main>{children}</main>
+		<Container style={{ marginTop: '10px' }}>
+			<Header />
+			{children}
 			<footer>It is footer</footer>
-		</>
+		</Container>
 	);
 };
