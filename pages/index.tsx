@@ -4,7 +4,6 @@ import styles from '../styles/Home.module.css';
 import factory from '../ethereum/factory';
 import { useState, useEffect, DOMElement } from 'react';
 import { Card, Button } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
 import { Layout } from '../components/MainComponents/Layout';
 
 type Campaigns = {
