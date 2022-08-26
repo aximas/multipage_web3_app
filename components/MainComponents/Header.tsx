@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Menu } from 'semantic-ui-react';
+import { Link } from '../../routes';
 
 export const Header = () => {
 	const [activeItem, setActiveItem] = useState<string>('');
@@ -10,12 +11,18 @@ export const Header = () => {
 
 	return (
 		<Menu>
-			<Menu.Item name='crowdCoin'>CrowdCoin</Menu.Item>
+			<Link route='/'>
+				<a className='item'>CrowdCoin</a>
+			</Link>
 
 			<Menu.Menu position='right'>
-				<Menu.Item name='campaigns'>Campaigns</Menu.Item>
+				<Link route='/'>
+					<a className='item'>Campaigns</a>
+				</Link>
 
-				<Menu.Item name='plus'>+</Menu.Item>
+				<Link route='/campaign/new'>
+					<a className='item'>+</a>
+				</Link>
 			</Menu.Menu>
 		</Menu>
 	);

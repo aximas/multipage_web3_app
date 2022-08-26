@@ -2,9 +2,10 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import factory from '../ethereum/factory';
-import { useState, useEffect, DOMElement } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import { Layout } from '../components/MainComponents/Layout';
+import { Link } from '../routes';
 
 type Campaigns = {
 	header: string;
@@ -27,7 +28,11 @@ const Home: NextPage = () => {
 				return {
 					header: address,
 					fluid: true,
-					description: <a href='#'>View campaing</a>,
+					description: (
+						<Link route={`/campaign/${address}`}>
+							<a>View campaign</a>
+						</Link>
+					),
 				};
 			});
 			setItems(items);
@@ -44,16 +49,17 @@ const Home: NextPage = () => {
 
 			<Layout>
 				<main className={styles.main}>
-					<div>
-						<Button
-							floated='right'
-							content='Create a compain'
-							icon='add circle'
-							labelPosition='right'
-							primary
-						/>
-						<Card.Group items={items}></Card.Group>
-					</div>
+					<Link route='/campaign/new'>
+						<a className={styles.btnWrapper}>
+							<Button
+								content='Create a compain'
+								icon='add circle'
+								labelPosition='right'
+								primary
+							/>
+						</a>
+					</Link>
+					<Card.Group items={items}></Card.Group>
 				</main>
 			</Layout>
 		</div>
