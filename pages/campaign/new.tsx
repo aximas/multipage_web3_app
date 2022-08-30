@@ -1,9 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Button, Form, Input, Message } from 'semantic-ui-react';
-import { Router } from '../../routes';
+import { useRouter } from 'next/router'
 import { Layout } from '../../components/MainComponents/Layout';
 import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
+
 
 const CampaignNew = () => {
 	const [contributionValue, setContributionValue] = useState<string>('');
@@ -16,6 +17,8 @@ const CampaignNew = () => {
 	});
 
 	const [error, setError] = useState<string>('');
+
+	const router = useRouter();
 
 	const handleChange = () => (e: ChangeEvent<HTMLInputElement>) => {
 		setContributionValue(e.currentTarget.value);
@@ -30,7 +33,7 @@ const CampaignNew = () => {
 			await factory.methods.createCampaign(contributionValue).send({
 				from: accounts[0],
 			});
-			await Router.pushRoute('/');
+			await router.push('/')
 		} catch (error: unknown| any) {
 			setError(error.message);
 		}
