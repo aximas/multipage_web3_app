@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import factory from '../ethereum/factory';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'semantic-ui-react';
 import { Layout } from '../components/MainComponents/Layout';
 import { Link } from '../routes';
@@ -19,8 +19,8 @@ const Home: NextPage = () => {
 
 	useEffect(() => {
 		(async () => {
-			const campaingns = await factory.methods.getDeployedCampaigns().call();
-			setCampaigns(campaingns);
+			const campaigns = await factory.methods.getDeployedCampaigns().call();
+			setCampaigns(campaigns);
 		})();
 
 		if (campaigns.length) {
@@ -29,6 +29,7 @@ const Home: NextPage = () => {
 					header: address,
 					fluid: true,
 					description: (
+						// @ts-ignore
 						<Link route={`/campaign/${address}`}>
 							<a>View campaign</a>
 						</Link>
@@ -49,17 +50,18 @@ const Home: NextPage = () => {
 
 			<Layout>
 				<main className={styles.main}>
+					{/*// @ts-ignore*/}
 					<Link route='/campaign/new'>
 						<a className={styles.btnWrapper}>
 							<Button
-								content='Create a compain'
+								content='Create a campaign'
 								icon='add circle'
 								labelPosition='right'
 								primary
 							/>
 						</a>
 					</Link>
-					<Card.Group items={items}></Card.Group>
+					<Card.Group items={items}/>
 				</main>
 			</Layout>
 		</div>

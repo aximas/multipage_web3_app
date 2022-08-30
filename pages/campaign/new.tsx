@@ -6,7 +6,7 @@ import factory from '../../ethereum/factory';
 import web3 from '../../ethereum/web3';
 
 const CampaignNew = () => {
-	const [contibutionValue, setContibutionValue] = useState<string>('');
+	const [contributionValue, setContributionValue] = useState<string>('');
 	const [status, setStatus] = useState<{
 		success?: string;
 		loading?: boolean;
@@ -18,7 +18,7 @@ const CampaignNew = () => {
 	const [error, setError] = useState<string>('');
 
 	const handleChange = () => (e: ChangeEvent<HTMLInputElement>) => {
-		setContibutionValue(e.currentTarget.value);
+		setContributionValue(e.currentTarget.value);
 	};
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -27,11 +27,11 @@ const CampaignNew = () => {
 		setStatus({ loading: true });
 		try {
 			const accounts = await web3.eth.getAccounts();
-			await factory.methods.createCampaign(contibutionValue).send({
+			await factory.methods.createCampaign(contributionValue).send({
 				from: accounts[0],
 			});
-			Router.pushRoute('/');
-		} catch (error) {
+			await Router.pushRoute('/');
+		} catch (error: unknown| any) {
 			setError(error.message);
 		}
 		setStatus({ loading: false });
@@ -49,7 +49,7 @@ const CampaignNew = () => {
 							label='wei'
 							labelPosition='right'
 							type='number'
-							value={contibutionValue}
+							value={contributionValue}
 							onChange={handleChange()}
 						/>
 					</Form.Field>

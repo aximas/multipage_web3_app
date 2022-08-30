@@ -1,13 +1,13 @@
-const { createServer } = require('http');
-const routes = require('./routes');
-const next = require('next');
+import {createServer } from 'http';
+import {customRoutes} from './routes.js';
+import next from 'next';
 const port = 3000;
 
 const app = next({
 	dev: process.env.NODE_ENV !== 'production',
 });
 
-const handler = routes.getRequestHandler(app);
+const handler = customRoutes.getRequestHandler(app);
 
 app.prepare().then(() => {
 	createServer(handler).listen(port, (err) => {
