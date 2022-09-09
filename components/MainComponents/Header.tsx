@@ -12,14 +12,14 @@ export const Header = () => {
 	return (
 		<Menu>
 			<Link href='/'>
-				CrowdCoin
+				<a className='item'>CrowdCoin</a>
 			</Link>
 			<Menu.Menu position='right'>
 				<Link href='/'>
-					Campaigns
+					<a className='item'>Campaigns</a>
 				</Link>
 				<Link href='/campaign/new'>
-					+
+					<a className='item'>+</a>
 				</Link>
 			</Menu.Menu>
 		</Menu>

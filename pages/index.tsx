@@ -1,11 +1,11 @@
 import type {NextPage} from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import factory from '../ethereum/factory';
 import React, {useState, useEffect} from 'react';
 import {Card, Button} from 'semantic-ui-react';
 import {Layout} from '../components/MainComponents/Layout';
 import Link from 'next/link';
+import {campaignData} from '../core/helpers/getCompains';
 
 type Campaigns = {
     header: string;
@@ -14,30 +14,34 @@ type Campaigns = {
 };
 
 const Home: NextPage = () => {
-    const [campaigns, setCampaigns] = useState<string[]>([]);
     const [items, setItems] = useState<Campaigns[]>([]);
 
     useEffect(() => {
+        let cleanUpFunction = false;
+
         (async () => {
-            const campaigns = await factory.methods.getDeployedCampaigns().call();
-            setCampaigns(campaigns);
+            const data =  await campaignData();
+
+            if (data.length && !cleanUpFunction) {
+                const items = data.map((address: string) => {
+                    return {
+                        header: address,
+                        fluid: true,
+                        description: (
+                            <Link href={`/campaign/${address}`}>
+                                View campaign
+                            </Link>
+                        ),
+                    };
+                });
+                setItems(items);
+            }
         })();
 
-        if (campaigns.length) {
-            const items = campaigns.map((address) => {
-                return {
-                    header: address,
-                    fluid: true,
-                    description: (
-                        <Link href={`/campaign/${address}`}>
-                            View campaign
-                        </Link>
-                    ),
-                };
-            });
-            setItems(items);
+        return () => {
+            cleanUpFunction = true;
         }
-    }, [campaigns]);
+    }, []);
 
     return (
         <div className={styles.container}>
